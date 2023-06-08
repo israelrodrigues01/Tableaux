@@ -87,14 +87,18 @@ def retirarEspaco(string):
 def criarFomula(formula):
   if '|-' in formula:  
     primeiro, segundo = formula.split('|-') # todos os primeiros devem ser verdadeiror, e o segundo devem ser falsos;
-    # primeiro = 'T'+ retirarEspaco(primeiro)
-    segundo = 'T'+ retirarEspaco(segundo)
-    # ramos.append(primeiro)
-    ramos.append(segundo)
-    # criarFomula(primeiro)
-    criarFomula(segundo)
-    
-  elif '->' in formula:  
+
+    subformulasSegundo = segundo.split(',')
+
+    for no in subformulasSegundo: # Caminhando em cada nó do array e atribuindo valor de falso para cada um
+      form = 'F'+ retirarEspaco(no)
+      ramos.append(form)
+
+    for no in ramos: # Caminhando em cada nó dos ramos e criando uma formula para cada um
+      criarFomula(no)
+
+
+  elif '->' in formula:
     if formula[0] == 'F':
       alfa(formula[1:], '->')
     else:
@@ -122,7 +126,7 @@ def criarFomula(formula):
     alfa(formula, '-')
 
 
-criarFomula('|- p -> r')
+criarFomula('|- q -> r, r -> q, c->t, b^c')
 
 
 
@@ -131,8 +135,8 @@ criarFomula('|- p -> r')
 
 os.system('cls')
 print(ramos)
-print(betas)
-print(pilhaDeRamos)
+# print(betas)
+# print(pilhaDeRamos)
 # print(verificarFechamento())
 
 
