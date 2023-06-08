@@ -2,14 +2,47 @@ import os
 
 tamatual = 2
 
-ramo = []
+ramos = []
+betas = []
+pilhaDeRamos =[]
+tamAtual = 0
 # Criando as formulas
+
+# def verificarFechamento():
+#   for valor1 in ramos:
+#     for valor2 in ramos:
+#       if valor1[1] == valor2[1]:
+#         if valor1[0] != valor2[0]:
+#           return print('ramo fechado')
 
 
 # Função para criar ramos betas
-def beta(formula):
-  print('beta')
+def beta(formula, conectivo):
+  tamAtual = len(ramos)
+  betas.append('x')
+  primeiro, segundo = formula.split(conectivo, 1)
 
+  # Implicação - verdadeiro
+  if conectivo == '->':
+    primeiro = 'F' + retirarEspaco(primeiro)
+    segundo = 'T' + retirarEspaco(segundo)
+    ramos.append(primeiro)
+
+  # e - falso
+  elif conectivo == '^':
+    primeiro = 'F' + retirarEspaco(primeiro)
+    segundo = 'F' + retirarEspaco(segundo)
+    ramos.append(primeiro)
+
+    
+  # ou - Verdeiro
+  elif conectivo == 'v':
+    primeiro = 'T' + retirarEspaco(primeiro)
+    segundo = 'T' + retirarEspaco(segundo)
+    ramos.append(primeiro)
+
+  # verificarFechamento()
+  pilhaDeRamos.append([segundo, tamAtual, betas])
 
 # Função para criar ramos alfas
 def alfa(formula, conectivo):
@@ -18,22 +51,22 @@ def alfa(formula, conectivo):
   if conectivo == '->':
     primeiro = 'T' + retirarEspaco(primeiro)
     segundo = 'F' + retirarEspaco(segundo)
-    ramo.append(primeiro)
-    ramo.append(segundo)
+    ramos.append(primeiro)
+    ramos.append(segundo)
 
   # e - verdadeiro
   elif conectivo == '^':
     primeiro = 'T' + retirarEspaco(primeiro)
     segundo = 'T' + retirarEspaco(segundo)
-    ramo.append(primeiro)
-    ramo.append(segundo)
+    ramos.append(primeiro)
+    ramos.append(segundo)
 
   # ou - falso
   elif conectivo == 'v':
     primeiro = 'F' + retirarEspaco(primeiro)
     segundo = 'F' + retirarEspaco(segundo)
-    ramo.append(primeiro)
-    ramo.append(segundo)
+    ramos.append(primeiro)
+    ramos.append(segundo)
 
   # negação - verdadeiro/falso
   elif conectivo == '-':
@@ -43,7 +76,7 @@ def alfa(formula, conectivo):
     else: 
       segundo = 'F' + retirarEspaco(segundo)
 
-    ramo.append(segundo)
+    ramos.append(segundo)
   
   criarFomula(primeiro)
   criarFomula(segundo)
@@ -54,8 +87,11 @@ def retirarEspaco(string):
 def criarFomula(formula):
   if '|-' in formula:  
     primeiro, segundo = formula.split('|-') # todos os primeiros devem ser verdadeiror, e o segundo devem ser falsos;
-    segundo = 'F'+ retirarEspaco(segundo)
-    ramo.append(segundo)
+    # primeiro = 'T'+ retirarEspaco(primeiro)
+    segundo = 'T'+ retirarEspaco(segundo)
+    # ramos.append(primeiro)
+    ramos.append(segundo)
+    # criarFomula(primeiro)
     criarFomula(segundo)
     
   elif '->' in formula:  
@@ -84,13 +120,20 @@ def criarFomula(formula):
 
   elif '-' in formula: 
     alfa(formula, '-')
-    
 
 
-criarFomula('|- -r v -c v c')
+criarFomula('|- p -> r')
+
+
+
+
+
 
 os.system('cls')
-print(ramo)
+print(ramos)
+print(betas)
+print(pilhaDeRamos)
+# print(verificarFechamento())
 
 
 
