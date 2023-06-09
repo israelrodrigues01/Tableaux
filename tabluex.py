@@ -33,7 +33,6 @@ def birfucacoes():
         satisfatibilidade()
 
 
-
 def satisfatibilidade():
     if verificarFechamento() == True:
         if not pilhaDeRamos:
@@ -130,13 +129,15 @@ def criarFomula(formula):
         # Array de todas as formulas das conclusões
         subformulasSegundo = segundo.split(',')
 
-        for no in subformulasSegundo:  # Caminhando em cada nó do array e atribuindo valor de falso para cada um
-            form = 'F' + retirarEspaco(no)
-            ramos.append(form)
+        if len(subformulasSegundo[0]) > 0:
+            for no in subformulasSegundo:  # Caminhando em cada nó do array e atribuindo valor de falso para cada um
+                form = 'F' + retirarEspaco(no)
+                ramos.append(form)
 
-        for no in subformulasPrimeiro:  # Caminhando em cada nó do array e atribuindo valor de falso para cada um
-            form = 'T' + retirarEspaco(no)
-            ramos.append(form)
+        if len(subformulasPrimeiro[0]) > 0:
+            for no in subformulasPrimeiro:  # Caminhando em cada nó do array e atribuindo valor de falso para cada um
+                form = 'T' + retirarEspaco(no)
+                ramos.append(form)
 
         for no in ramos:  # Caminhando em cada nó dos ramos e criando uma formula para cada um
             criarFomula(no)
@@ -163,8 +164,9 @@ def criarFomula(formula):
         alfa(formula, '-')
 
 
-criarFomula('p -> q, q -> r |- p -> r')  # Formula na qual será criada
+criarFomula('|- p -> r, r -> p')  # Formula na qual será criada
 
 
 os.system('cls')
+print(ramos)
 print(satisfatibilidade())
