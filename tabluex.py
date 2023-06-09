@@ -36,11 +36,11 @@ def birfucacoes():
 def satisfatibilidade():
     if verificarFechamento() == True:
         if not pilhaDeRamos:
-            print('Satisfativel')
+            print('Satisfatível')
         else:
             birfucacoes()
     else:
-        print('Insatisfativel')
+        print('Insatisfatível')
 
 # Função para criar ramos betas
 
@@ -101,7 +101,6 @@ def alfa(formula, conectivo):
     elif conectivo == '-':
         if formula[0] == 'F':
             segundo = 'T' + retirarEspaco(segundo)
-
         else:
             segundo = 'F' + retirarEspaco(segundo)
 
@@ -164,9 +163,12 @@ def criarFomula(formula):
         alfa(formula, '-')
 
 
-criarFomula('|- p -> r, r -> p')  # Formula na qual será criada
+os.system('cls')
+formula = input('Digite a fórmula: ')
+criarFomula(formula)  # Formula na qual será criada
 
 
 os.system('cls')
-print(ramos)
-print(satisfatibilidade())
+print('Formula: \n' + formula + '\n')
+print('Está fórmula é: ')
+satisfatibilidade()
